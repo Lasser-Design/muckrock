@@ -50,6 +50,19 @@ var config = {
                 }
             },
             {
+                test: /\.svelte$/,
+                use: {
+                    loader: 'svelte-loader',
+                },
+            },
+            {
+                // required to prevent errors from Svelte on Webpack 5+, omit on Webpack 4
+                test: /node_modules\/svelte\/.*\.mjs$/,
+                resolve: {
+                    fullySpecified: false
+                }
+            },
+            {
                 test: /\.s[ac]ss?$/,
                 use: [
                     MiniCssExtractPlugin.loader,
@@ -81,7 +94,12 @@ var config = {
         ]
     },
     resolve: {
-        extensions: ['', '.js', '.jsx']
+        alias: {
+            svelte: path.resolve('node_modules', 'svelte')
+        },
+        extensions: ['', '.js', '.jsx', '.svelte'],
+        mainFields: ['svelte', 'browser', 'module', 'main'],
+        conditionNames: ['svelte', 'browser'],
     },
     watchOptions: {
         poll: true

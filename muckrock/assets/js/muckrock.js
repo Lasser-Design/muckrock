@@ -45,9 +45,11 @@ import './task';
 
 import 'jquery.tabulator';
 
+import HelloWorld from '../svelte/HelloWorld.svelte';
+
 /* Bind plugins and event handlers to frontend elements. */
 
-$('document').ready(function(){
+jQuery(function(){
 
   if ('ontouchstart' in window) {
     $('body').addClass('touch');
@@ -186,5 +188,7 @@ $('document').ready(function(){
   $('#filter-form button.get').click(function() {
     $('#filter-form [name=csrfmiddlewaretoken]').removeAttr('name');
   });
+
+  new HelloWorld({target: document.getElementById('hello-svelte')});
 
 });
